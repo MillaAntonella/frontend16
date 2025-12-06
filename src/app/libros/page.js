@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -7,7 +7,7 @@ import BookGrid from '@/components/books/BookGrid';
 import SearchBar from '@/components/books/SearchBar';
 import { booksAPI } from '@/lib/api/books';
 
-export default function LibrosPage() {
+function LibrosContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q');
   
@@ -149,5 +149,38 @@ export default function LibrosPage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function LibrosPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ 
+        minHeight: '100vh', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        backgroundColor: '#f9fafb' 
+      }}>
+        <Navbar />
+        <div style={{ 
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ 
+              fontSize: '3rem',
+              marginBottom: '20px',
+              animation: 'spin 1s linear infinite'
+            }}>📚</div>
+            <p style={{ fontSize: '1.2rem', color: '#6b7280' }}>Cargando libros...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    }>
+      <LibrosContent />
+    </Suspense>
   );
 }
