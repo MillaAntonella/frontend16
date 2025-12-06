@@ -9,6 +9,10 @@ const nextConfig = {
       },
     ],
   },
+  // Asegura que las páginas con useSearchParams sean dinámicas
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 }
 
 module.exports = nextConfig
