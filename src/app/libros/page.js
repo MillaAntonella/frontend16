@@ -7,9 +7,6 @@ import BookGrid from '@/components/books/BookGrid';
 import SearchBar from '@/components/books/SearchBar';
 import { booksAPI } from '@/lib/api/books';
 
-// Forzar rendering dinámico
-export const dynamic = 'force-dynamic';
-
 export default function LibrosPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q');
