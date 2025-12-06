@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -10,7 +10,7 @@ import { booksAPI } from '@/lib/api/books';
 // Forzar rendering dinámico
 export const dynamic = 'force-dynamic';
 
-function LibrosContent() {
+export default function LibrosPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q');
   
@@ -152,38 +152,5 @@ function LibrosContent() {
 
       <Footer />
     </div>
-  );
-}
-
-export default function LibrosPage() {
-  return (
-    <Suspense fallback={
-      <div style={{ 
-        minHeight: '100vh', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        backgroundColor: '#f9fafb' 
-      }}>
-        <Navbar />
-        <div style={{ 
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ 
-              fontSize: '3rem',
-              marginBottom: '20px',
-              animation: 'spin 1s linear infinite'
-            }}>📚</div>
-            <p style={{ fontSize: '1.2rem', color: '#6b7280' }}>Cargando libros...</p>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    }>
-      <LibrosContent />
-    </Suspense>
   );
 }
